@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams} from 'react-router-dom';
@@ -12,12 +11,12 @@ const ShowBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-    .get(`https://book-store-mern-production.up.railway.app/books/${id}`)
+    .get(`${import.meta.env.VITE_BACKEND_SERVER_URL}/books/${id}`)
     .then((response) => {
       setBook(response.data);
       setLoading(false);
     })
-    .catch((error) => {
+    .catch(() => {
       setLoading(false);
     });
   },[])

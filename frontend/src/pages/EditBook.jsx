@@ -1,10 +1,9 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 const EditBook = () => {
   const [title, setTitle] = useState("");
@@ -13,12 +12,12 @@ const EditBook = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
-  const { enqueueSnackbar} = useSnackbar();
-
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`https://book-store-mern-production.up.railway.app/books/${id}`)
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_SERVER_URL}/books/${id}`)
       .then((response) => {
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear);
@@ -40,16 +39,16 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`https://book-store-mern-production.up.railway.app/books/${id}`, data)
+      .put(`${import.meta.env.VITE_BACKEND_SERVER_URL}/books/${id}`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book edited sucessfully', { variant:' success'});
+        enqueueSnackbar("Book edited sucessfully", { variant: " success" });
         navigate("/");
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         // alert("An error happened. Please check console");
-        enqueueSnackbar('Error', { variant:' error'});
+        enqueueSnackbar("Error", { variant: " error" });
       });
   };
 
@@ -58,7 +57,7 @@ const EditBook = () => {
       <BackButton />
       <h1 className="text-3xl my-4">Edit Book</h1>
       {loading ? <Spinner /> : ""}
-      <div className="flex flex-col border-2 border-sky-400 rounded-xl w-[6000px] p-4 mx-auto">
+      <div className="flex flex-col border-2 border-sky-400 rounded-xl  p-4 mx-auto">
         <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">Title</label>
           <input
@@ -94,4 +93,4 @@ const EditBook = () => {
   );
 };
 
-export default EditBook
+export default EditBook;

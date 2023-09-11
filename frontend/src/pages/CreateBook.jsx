@@ -1,10 +1,9 @@
-import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -22,16 +21,16 @@ const CreateBook = () => {
     };
     setLoading(true);
     axios
-      .post("https://book-store-mern-production.up.railway.app/books", data)
+      .post(`${import.meta.env.VITE_BACKEND_SERVER_URL}/books`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book created sucessfully', { variant:' success'});
+        enqueueSnackbar("Book created sucessfully", { variant: " success" });
         navigate("/");
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         // alert("An error happened. Please check console");
-        enqueueSnackbar('Error', { variant:'error' });
+        enqueueSnackbar("Error", { variant: "error" });
       });
   };
 
@@ -39,8 +38,8 @@ const CreateBook = () => {
     <div className="p-4">
       <BackButton />
       <h1 className="text-3xl my-4">Create Book</h1>
-      {loading ? <Spinner /> : ''}
-      <div className="flex flex-col border-2 border-sky-400 rounded-xl w-[6000px] p-4 mx-auto">
+      {loading ? <Spinner /> : ""}
+      <div className="flex flex-col border-2 border-sky-400 rounded-xl  p-4 mx-auto">
         <div className="my-4">
           <label className="text-xl mr-4 text-gray-500">Title</label>
           <input
