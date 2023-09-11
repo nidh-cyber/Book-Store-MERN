@@ -19,8 +19,17 @@ const allowedOrigins = [
   "https://book-store-mern-weqh.vercel.app",
   "https://book-store-mern-weqh-nidh-cyber.vercel.app",
   "https://book-store-mern-weqh-git-main-nidh-cyber.vercel.app",
-  "https://nidhi-book-store-mern.vercel.app"
+  "https://nidhi-book-store-mern.vercel.app",
 ];
+
+mongoose
+  .connect(mongoDBURL)
+  .then(() => {
+    console.log("App connected to database");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 app.use(
   cors({
@@ -28,23 +37,12 @@ app.use(
   })
 );
 
-app.get('/', (request, response) => {
-    console.log(request);
-    return response.status(234).send("Welcome to Mern Stack Tutorial");
+app.get("/", (request, response) => {
+  return response.status(234).send("Welcome to Mern Stack Tutorial");
 });
 
- 
-app.use('/books', booksRoute);
+app.use("/books", booksRoute);
 
-
-mongoose
-    .connect(mongoDBURL)
-    .then(() => {
-        console.log('App connected to database');
-        app.listen(PORT, () => {
-            console.log(`App is listening to port: ${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+app.listen(PORT, () => {
+  console.log(`App is listening to port: ${PORT}`);
+});
