@@ -14,20 +14,19 @@ app.use(express.json());
 // Option 1: Allow All origins with default of cors(*)
 // app.use(cors());
 // Option 2: Allow custom origins
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://book-store-mern-weqh.vercel.app",
+  "https://book-store-mern-weqh-nidh-cyber.vercel.app",
+  "https://book-store-mern-weqh-git-main-nidh-cyber.vercel.app",
+  "https://nidhi-book-store-mern.vercel.app"
+];
+
 app.use(
-    cors({
-      origin: "*",
-      methods: [
-        'GET',
-        'POST',
-        'PUT',
-        'DELETE'
-      ],
-      allowedHeaders: [
-        'Content-Type',
-      ],
-    })
-  );
+  cors({
+    origin: allowedOrigins,
+  })
+);
 
 app.get('/', (request, response) => {
     console.log(request);
